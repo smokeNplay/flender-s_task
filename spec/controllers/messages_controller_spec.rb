@@ -13,7 +13,7 @@ RSpec.describe MessagesController, type: :controller do
 
     it 'should create a new Message with proper params' do
       messages_count = Message.count
-      post '/messages', params: proper_message.to_json
+      post '/messages', params: { message: proper_message }
 
       expect(Message.count).to eq messages_count + 1
       expect(response).to have_http_status(:created)
@@ -21,7 +21,7 @@ RSpec.describe MessagesController, type: :controller do
 
     it 'should not create any Messages without proper params' do
       messages_count = Message.count
-      post '/messages', params: {}.to_json
+      post '/messages', params: { foo: :bar }
 
       expect(Message.count).to eq messages_count
       expect(response).to have_http_status(:bad_request)
