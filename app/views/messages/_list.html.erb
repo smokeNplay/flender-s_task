@@ -1,0 +1,25 @@
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info messages %>
+  </div>
+
+  <table>
+    <tr>
+      <th>email</th>
+      <th><%= filterrific_sorting_link(@filterrific, :first_name) %></th>
+      <th>last name</th>
+      <th><%= filterrific_sorting_link(@filterrific, :amount) %></th>
+    </tr>
+    <% messages.each do |msg| %>
+      <tr>
+        <td><%= msg.email %></td>
+        <td><%= msg.first_name %></td>
+        <td><%= msg.last_name %></td>
+        <td><%= msg.amount %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate messages %>

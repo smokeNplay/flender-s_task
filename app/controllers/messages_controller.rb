@@ -1,5 +1,18 @@
 class MessagesController < ApplicationController
-  def index; end
+  def index
+    @filterrific = initialize_filterrific(
+      Message,
+      params[:filterrific],
+      select_options: { sorted_by: Message.options_for_sorted_by },
+      available_filters: [:sorted_by, :by_email, :by_last_name]
+    ) || return
+    @messages = @filterrific.find.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def create
     message = Message.create(message_params)
